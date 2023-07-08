@@ -33,13 +33,13 @@
 </body>
   <script>
        
-    var hd=document.getElementById('header-title');
-        console.log(hd);
-        var y=document.getElementsByClassName('title');
-        console.log(y);
-    y[0].style.fontWeight='bold';
-    y[0].style.color='green';
-    
+     var it =document.getElementsByClassName('list-group-item');
+        it[2].style.background='green';
+        
+        for(let i=0;i<it.length;i++)
+            {
+                it[i].style.fontWeight='bold';
+            }
        
     </script>
 </html>

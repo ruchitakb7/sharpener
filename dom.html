@@ -33,10 +33,14 @@
 </body>
   <script>
 
-        var z= document.querySelector('.list-group-item:nth-child(2)');
-        z.style.background='green';
-        var x= document.querySelector('.list-group-item:nth-child(3)');
-        x.style.dispaly='none';
+   var z=document.querySelectorAll('.list-group-item');
+        console.log(z);
+        z[1].style.color="green";
+        var x=document.querySelectorAll('li:nth-child(odd)')
+        for(var i=0;i<x.length;i++)
+            {
+                x[i].style.background='green';
+            }
     
        
     </script>

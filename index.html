@@ -64,6 +64,17 @@ var c= document.querySelector('header .container');
 var h1=document.querySelector('header h1');
 newelement.style.fontSize='40px';
 c.insertBefore(newelement, h1);
+
+    
+var id=document.getElementById('items');
+console.log(id);
+var n=document.createElement('div');
+n.class='list-gruop-item';
+var x1=document.createTextNode('HEllo');
+//var t=document.getElementsByClassName('list-gruop-item');
+n.appendChild(x1);
+console.log(n);
+id.insertBefore(n,id.firstElementChild);
   </script>
   </body>
 </html>

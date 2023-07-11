@@ -30,5 +30,40 @@
    </div>
   </div>
 
-</body>
+
+  <script>
+    var i=document.querySelector('.list-group');
+
+i.parentElement.style.color='red';
+
+console.log(i.childNodes.childNodes);
+i.firstElementChild.style.color='green';
+console.log(i.firstChild);
+console.log(i.lastChild);
+
+i.lastElementChild.textContent='I_t_e_m 4';
+i.children[0].style.fontWeight='bold';
+i.childNodes[3].style.background='pink';
+
+//var c=document.querySelector('.container');
+
+i.nextElementSibling.value="ruchita";
+console.log(i.previousElementSibling.previousElementSibling.previousElementSibling);
+i.previousElementSibling.previousElementSibling.previousElementSibling.style.fontWeight="bold";
+
+var x=document.querySelector('.title');
+console.log(x.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling);
+
+var newelement= document.createElement('div');
+newelement.className='container';
+newelement.id='hel';
+newelement.setAttribute('title','hellooo');
+var node=document.createTextNode('HEllo');
+newelement.appendChild(node);
+var c= document.querySelector('header .container');
+var h1=document.querySelector('header h1');
+newelement.style.fontSize='40px';
+c.insertBefore(newelement, h1);
+  </script>
+  </body>
 </html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hello, World!</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+     
+      <p id="content"></p>
+      <script>
+        
+        const Info = {
+  Name: 'Ruchi',
+  State: 'Maharashtra'
+}
+
+
+localStorage.setItem('Info', JSON.stringify(Info))
+
+console.log(localStorage);
+
+var myInfo = JSON.parse(localStorage.getItem('Info'));
+
+console.log(myInfo);
+
+      </script>
+  </body>
+</html>

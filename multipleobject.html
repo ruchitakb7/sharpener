@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+
+<input type="text" id="name"><br><br>
+<input type="email" id="email"><br><br>
+<input type="text" id="state"><br><br>
+
+<input type="submit" onclick="test()">
+
+<ul id="mylist"></ul>
+
+<p id="demo"></p>
+
+<script>
+function test(){
+var n= document.getElementById("name").value;
+var e= document.getElementById("email").value;
+var s= document.getElementById("state").value;
+
+
+class Info {
+  constructor(name,email,state) {
+    this.name = name;
+    this.email=email;
+    this.state=state;
+  
+
+  }
+  print()
+  {
+  console.log(this.name + " " + this.email + " " + this.state);
+     return this.name + " " + this.email + " " + this.state;
+  }
+ 
+}
+
+const myInfo = new Info(n,e,s);
+
+/*var u=document.getElementById("mylist");
+var x=myInfo.print();
+console.log(x);
+u.innerHTML =x;*/
+var x=myInfo.print();
+var ul=document.getElementById("mylist");
+var li=document.createElement("li");
+var text=document.createTextNode(x);
+li.appendChild(text);
+ul.appendChild(li);
+
+
+localStorage.setItem(myInfo.email, JSON.stringify(myInfo))
+
+console.log(localStorage);
+
+}
+</script>
+
+</body>
+</html>

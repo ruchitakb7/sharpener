@@ -8,27 +8,21 @@
 <body>
 
   <div class="container">
-   <div class="card card-body">
-  
-    
+   <div class="card card-body">   
       
 <input type="text" id="name"  placeholder="Name"><br><br>
 <input type="email" id="email"  placeholder="email"><br><br>
 <input type="text" id="state"  placeholder="State"><br><br>
- <input type="submit" class="btn btn-dark" value="Submit" onclick="test()"> <br><br>
-      
-   
-    <ul id="mylist" class="list-group">
-     
+<input type="submit" class="btn btn-dark" value="Submit" onclick="test()"> <br><br>
+<ul id="mylist" class="list-group">  
     </ul>
    </div>
   </div>
     <script>
-        function test(){
+function test(){
 var n= document.getElementById("name").value;
 var e= document.getElementById("email").value;
 var s= document.getElementById("state").value;
-
 
 class Info {
   constructor(name,email,state) {
@@ -45,8 +39,6 @@ class Info {
 }
 
 const myInfo = new Info(n,e,s);
-
-
 var x=myInfo.print();
 var ul=document.getElementById("mylist");
 var li=document.createElement("li");
@@ -67,12 +59,21 @@ btn.onclick=function()
    localStorage.removeItem(myInfo.email);
         
 }
-
-
+var edt_btn=document.createElement("button");   
+edt_btn.appendChild(document.createTextNode("Edit"));
+li.appendChild(edt_btn);    
+edt_btn.style.float="right";
+edt_btn.onclick=function()
+{        
+    document.getElementById("name").value=n;
+    document.getElementById("email").value=e;
+    document.getElementById("state").value=s;
+    mylist.removeChild(li);
+    localStorage.removeItem(myInfo.email);
+    
+}          
 localStorage.setItem(myInfo.email, JSON.stringify(myInfo))
-
 console.log(localStorage);
-
 }
     </script>
     </body></html>

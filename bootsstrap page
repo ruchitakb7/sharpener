@@ -1,0 +1,175 @@
+<html><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+    <style>
+           .container
+        {
+           width:580px;
+             height:autopx;           
+        }
+        center{
+            width:580px;
+            margin-left:350px;
+            height:60px;   
+        }
+       
+      
+       
+    </style>
+    </head>
+  <body>
+    <!--   <center class="mt-4 p-3 bg-info">EXPENSE TRACKER</center>-->
+<div class="container bg-danger ">
+  
+          <form>
+             
+             <div class="p-4">
+                 
+             
+           <input type="number" min="100" id="amount" class="form-control-sm" required placeholder="Enter ExpenseAmount(Rs)">
+            <input type="text" id="decsription" class="form-control-inline" placeholder="Description" required>
+           <select id="select" class="form-select-inline form-select-sm" required>
+                <option></option>
+               <option>Movie</option>
+               <option>Food</option>
+               <option>Travel</option>
+                <option>Automobile</option>
+               <option>Gadgets</option>
+               <option>shoping</option> 
+            </select>
+                <button onclick="add()"> ADD
+                </button>      
+                 </div>
+              
+          </form>
+      </div>
+       <ul id="list" class=" container bg-warning mt-3 list-group ">
+                      
+                  </ul>
+       <script>
+        
+         if(localStorage.length!=0)
+                {
+                   var op;
+                  for(var i=0;i<localStorage.length;i++)
+                  {
+                      
+                     op =JSON.parse(localStorage.getItem(localStorage.key(i)));
+                     
+                     //var info=op.amount + " "  + op.opt + " " + op.des ;
+                     
+                      var li=document.createElement("li");
+                      li.appendChild(document.createTextNode(op.amount + " - "  + op.opt + " - " + op.des));
+                      document.getElementById("list").appendChild(li);
+                    
+                      li.className="mb-1";
+                      
+                      
+                     
+                      
+                      //editbutton
+                      
+                      var edt_btn=document.createElement("button");
+                      edt_btn.appendChild(document.createTextNode("Edit"));
+                      li.appendChild(edt_btn);
+                     
+                      edt_btn.style.float="right";
+            
+                         edt_btn.onclick=function()
+                  {
+                    
+                    document.getElementById("amount").value=op.amount;
+                     document.getElementById("select").value=op.opt;
+                     document.getElementById("decsription").value=op.des;
+                    list.removeChild(li);
+                    localStorage.removeItem(op.amount);
+                  }
+                  
+                  //deletebuttton
+                  
+                   var del_btn=document.createElement("button");
+                del_btn.appendChild(document.createTextNode("Delete"));
+                li.appendChild(del_btn);
+               
+                del_btn.style.float="right";
+                del_btn.onclick=function()
+                {
+                    list.removeChild(li);
+                     localStorage.removeItem(op.amount);
+                    
+                }
+                
+                     
+                  }
+                 // console.log(info);
+                 
+                }
+            function add()
+            {
+                
+                var opt=document.getElementById("select").value;
+                var val=document.getElementById("amount").value;
+                var des=document.getElementById("decsription").value;
+               
+               
+            
+                class info{
+                    constructor(amount,opt,des)
+                    {
+                        this.amount=amount;
+                        this.opt=opt;
+                        this.des=des;
+                    }
+                    
+                    print()
+                    {
+                        
+                        return this.amount + " - "  + this.opt + " - " + this.des ;
+                    }
+                }
+                const data=new info(val,opt,des);
+                var detail=data.print();
+               // console.log(detail);
+                var li=document.createElement("li");
+                var text=document.createTextNode(detail);
+                li.appendChild(text);
+                document.getElementById("list").appendChild(li);
+                 li.className="mb-1";
+                
+                localStorage.setItem(data.amount,JSON.stringify(data));
+                
+                var edt_btn=document.createElement("button");
+                edt_btn.appendChild(document.createTextNode("Edit"));
+                li.appendChild(edt_btn);
+                edt_btn.style.float="right";
+                edt_btn.onclick=function()
+                {
+                    document.getElementById("amount").value=val;
+                     document.getElementById("select").value=opt;
+                     document.getElementById("decsription").value=des;
+                    list.removeChild(li);
+                    localStorage.removeItem(data.amount);
+                }
+                
+                var del_btn=document.createElement("button");
+                del_btn.appendChild(document.createTextNode("Delete"));
+                li.appendChild(del_btn);
+                del_btn.style.float="right";
+               
+                del_btn.onclick=function()
+                {
+                    list.removeChild(li);
+                     localStorage.removeItem(data.amount);
+                    
+                }
+                 document.getElementById("amount").value="";
+                     document.getElementById("select").value="";
+                     document.getElementById("decsription").value="";
+                
+            }
+       
+        </script>
+    </body></html>

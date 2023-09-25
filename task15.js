@@ -74,6 +74,56 @@ const preMovie = async () => {
       };
 
 
+const array = [];
+    
+      function createpost(post1) {
+        return new Promise(async (resolve, reject) => {
+          array.push(post1);
+         
+          resolve(post1);
+        });
+      }
+
+      function showpost() {
+    
+        array.forEach((element) => {
+          console.log(element);
+        });
+      }
+
+      function deleteBlog() {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            if (array.length > 0) {
+              const last = array.pop();
+              resolve(last);
+            } else {
+              reject("ERROR");
+            }
+          }, 1000);
+        });
+      }
+
+      async function output() {
+        try {
+          await Promise.all([
+            createpost("post1"),
+            createpost("post2"),
+            showpost(),
+          ]);
+         await deleteBlog(); 
+          await showpost();
+          await deleteBlog(); 
+            await deleteBlog(); 
+           await showpost();
+        } catch (err) {
+          console.log(err);
+        }
+      }
+
+      output();
+
+
       preMovie().then((t) => console.log(`person4 shows ${t}`));
 
       console.log("person4 shows ticket");

@@ -1,0 +1,90 @@
+<html>
+<body>
+  
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Booking App</title>
+    
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    Name :
+    <input type="text" id="name"><br><br>
+    Email :
+    <input type="email" id="email" > <br><br>
+    Phone :
+    <input type="phone" id="phone" ><br><br>
+    
+    <button id="btn" style="background-color:green">Submit</button>
+    <div id="container"></div>
+    
+    
+    <script >
+const container = document.querySelector("#container");
+const btn = document.querySelector("#btn");
+const user = document.querySelector("#name");
+const email = document.querySelector("#email");
+const phone = document.querySelector("#phone");
+btn.onclick = function ()
+{
+ 
+  let obj = {
+    userName: user.value,
+    userEmail: email.value,
+    userPhone: phone.value,
+  };
+ 
+  let string = JSON.stringify(obj);
+ 
+  localStorage.setItem(JSON.stringify(obj.userEmail), string);
+  
+  let para = document.createElement("p");
+  container.appendChild(para);
+ 
+  let data = JSON.parse(localStorage.getItem(JSON.stringify(obj.userEmail)));
+  if (data)
+    para.innerText = `name: ${data.userName} email: ${data.userEmail} phone: ${data.userPhone}`;
+ 
+  user.value = "";
+  email.value = "";
+  phone.value = "";
+  
+  async function getUser() {
+    try {
+      const response = await axios.post(
+        "https://crudcrud.com/api/9466af59db3042a08c876734a8339c1a/user",
+        obj
+      );
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  getUser();
+};
+window.addEventListener("DOMContentLoaded", async () => {
+  const data = await axios.get(
+    "https://crudcrud.com/api/9466af59db3042a08c876734a8339c1a/user"
+  );
+  let response = data.data;
+  for (let i = 0; i < response.length; i++) {
+    let para = document.createElement("p");
+    let span = document.createElement("span");
+    span.innerText =
+      "Name: " +
+      response[i].userName +
+      " , " +
+      "Email: " +
+      response[i].userEmail +
+      "  , " +
+      "Phone: " +
+      response[i].userPhone;
+    para.appendChild(span);
+    container.appendChild(para);
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<html lang="en">
+  <body>
+    <header>
+      <h1>Booking Appointment app</h1>
+    </header>
+
+    <form onSubmit="saveData(event)">
+      <label>Name:</label>
+      <input type="text" id="name" name="tname" /><br><br>
+
+      <label for="email">Email:</label>
+      <input type="text" id="email" name-="ename" /><br><br>
+
+      <input class="btn" type="submit" value="Submit" />
+    </form>
+    <ul id="list"></ul>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.5/axios.min.js"></script>
+    <script>
+      function saveData(event) {
+        event.preventDefault();
+
+        const name = document.getElementById("name").value;
+        const email = document.getElementById("email").value;
+
+        const obj = {
+          name: name,
+          email: email,
+        };
+        axios
+          .post(
+            "https://crudcrud.com/api/9466af59db3042a08c876734a8339c1a/user",
+            obj
+          )
+          .then((response) => {
+            console.log(response);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+
+       
+        print(obj);
+      }
+      function print(obj) {
+        const parentEle = document.getElementById("list");
+
+        const user = document.createElement("li");
+        user.textContent = obj.name + " - " + obj.email;
+
+     
+
+        const editButton = document.createElement("input");
+        editButton.type = "button";
+        editButton.value = "Edit";
+         editButton.style.marginBottom='10px';
+         editButton.style.marginLeft='5px';
+        editButton.onclick = () => {
+         
+          axios
+            .put(
+              `https://crudcrud.com/api/9466af59db3042a08c876734a8339c1a/user/${obj._id}`,
+              obj
+            )
+            .then((response) => {
+              console.log(response);
+              print(response.data);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+
+          parentEle.removeChild(user);
+          document.getElementById("name").value = obj.name;
+          document.getElementById("email").value = obj.email;
+        };
+       
+        user.appendChild(editButton);
+        parentEle.appendChild(user);
+        
+         document.getElementById("name").value="";
+        document.getElementById("email").value="";
+      }
+
+      window.addEventListener("DOMContentLoaded", () => {
+        axios
+          .get(
+            "https://crudcrud.com/api/9466af59db3042a08c876734a8339c1a/user")
+          .then((response) => {
+            console.log(response);
+            for (var i = 0; i < response.data.length; i++) {
+              print(response.data[i]);
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,124 @@
+<html><head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        div{
+            width:450px;
+            border:1px solid green;
+            margin : 20px;
+         
+            padding :6px;
+        }
+    </style>
+    </head>
+    <body>
+        <div id="main">
+            
+            <input type="text" id="name" placeholder="ToDoName">
+            <input type="text" id="description" placeholder="Decription">
+            <button onclick="add()">
+                Add Item
+            </button>
+        </div>
+        <div id="list">
+            
+        </div>
+        <div id="update">
+            <h3 style="color:red">
+                Things Has Done
+            </h3>
+        </div>
+        
+    
+    <script>
+    function add()
+        {
+            let name=document.getElementById("name").value;
+            let descript=document.getElementById("description").value;
+            let flag="false";
+            let obj={
+                name,
+                descript,
+                flag,
+            }
+            console.log(obj);
+            getuser()
+            async function getuser()
+            {    
+                await axios.post("https://crudcrud.com/api/710cd2f42d6e4926a5d9ca90e420ce87/user",obj)
+                .then((response)=>{
+                    console.log(response)
+                    printdata(response.data)
+                })
+                .catch((error)=>{
+                    console.log(error)
+                });
+                
+            }
+        }
+        window.addEventListener("DOMContentLoaded",async ()=>{
+            await axios.get("https://crudcrud.com/api/710cd2f42d6e4926a5d9ca90e420ce87/user")
+            .then((response)=>{
+                for(let i=0;i<response.data.length;i++)
+                    {
+                        printdata(response.data[i]);
+                    }
+            })
+            .catch((error)=>{
+                console.log(error)
+            });
+        })
+        function printdata(obj)
+        {
+            let para = document.createElement("p");
+           para.appendChild(document.createTextNode(obj.name +" - " + obj.descript))
+            let checkmark=document.createElement("button");
+           
+            checkmark.appendChild(document.createTextNode("✔"));
+         //   checkmark.style.backgroundColor="green";
+            let del=document.createElement("button");
+            del.appendChild(document.createTextNode("X"));
+            del.style.backgroundColor="red";
+            if(obj.flag=="true")
+                {
+                    let para2=document.createElement("p");
+                    para2.innerText=para.textContent;
+                    update.appendChild(para2);
+                }
+            else{
+            para.appendChild(del);
+            para.appendChild(checkmark);
+           list.appendChild(para);
+            del.style.float="right";
+            checkmark.style.float="right";
+            checkmark.style.marginRight="5px";
+            checkmark.onclick= function()
+            {
+               let id= axios.put(`https://crudcrud.com/api/710cd2f42d6e4926a5d9ca90e420ce87/user/${obj._id}`,obj)
+                   obj['flag']="true";
+               
+                    para.removeChild(del)
+                    para.removeChild(checkmark)
+                    let para1=document.createElement("p");
+                    para1.innerText=para.textContent;
+                    list.removeChild(para);
+                    update.appendChild(para1);
+               
+            }
+            del.onclick= function()
+            {
+                axios.delete(`https://crudcrud.com/api/710cd2f42d6e4926a5d9ca90e420ce87/user/${obj._id}`)
+                .then((response)=>{
+                    console.log(response)
+                    list.removeChild(para);
+                })
+                .catch((error)=>{
+                    console.log(error);
+                })
+            }
+            }
+        }
+    </script>
+</body></html>

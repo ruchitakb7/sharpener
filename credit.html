@@ -1,0 +1,108 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Booking App</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    Name :
+    <input type="text" id="name"><br><br>
+    Email :
+    <input type="email" id="email" > <br><br>
+    Phone :
+    <input type="phone" id="phone" ><br><br>
+
+    <button onclick="add()" style="background-color: green;">SUBMIT</button>
+
+    
+        <ul id="list">
+
+        </ul>
+    
+    
+   
+   <script>
+         
+     async function add()
+       {
+            let name=document.getElementById("name").value;
+            let email=document.getElementById("email").value;
+            let ph=document.getElementById("phone").value;
+            if(name=="" || ph=="" || email == "")
+            {
+                alert("FILL THE FEILD PROPERLY");
+
+            }
+
+            else{
+
+            let info={
+                name,
+                email,
+                ph
+            }
+           await axios.post("https://crudcrud.com/api/47161d16802b4133928e81bcbc956c34/user",info)
+           .then((response)=>{
+            printdata(response.data);
+            localStorage.setItem(response.data._id,JSON.stringify(response.data));
+           })
+           .catch((error)=>console.log(error));
+
+        }
+       }
+
+       window.addEventListener("DOMContentLoaded",async ()=>{
+        
+            await axios.get("https://crudcrud.com/api/47161d16802b4133928e81bcbc956c34/user")
+            .then((response)=>{
+                console.log(response.data);
+                for(let i=0;i<response.data.length;i++)
+                {
+                printdata(response.data[i]);
+                }
+            })
+        .catch((error)=>{
+            console.log(error)
+        })
+       })
+        function printdata(info)
+       {
+            let li= document.createElement("li")
+            li.appendChild(document.createTextNode(info.name + "    " + info.email + "    " + info.ph));
+            
+            let btn=document.createElement("button")
+            btn.appendChild(document.createTextNode("DELETE"))
+           
+            btn.style.float="right";
+            li.appendChild(btn);
+            list.appendChild(li)
+            li.style.marginBottom="20px";
+
+            btn.onclick= async function()
+            {
+               document.getElementById("name").value=info.name;
+             document.getElementById("email").value=info.email;
+             document.getElementById("phone").value=info.ph;   
+                localStorage.removeItem(info._id)
+                await axios.delete(`https://crudcrud.com/api/47161d16802b4133928e81bcbc956c34/user/${info._id}`)
+                .then((response)=>{
+                    list.removeChild(li);
+                })
+                .catch((error)=>{
+                    console.log(error)
+                }) 
+
+                
+
+            }
+
+
+            
+       }
+
+   </script>
+  </body>
+</html>

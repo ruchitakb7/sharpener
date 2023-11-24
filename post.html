@@ -71,7 +71,28 @@
        {
             let li= document.createElement("li")
             li.appendChild(document.createTextNode(info.name + "    " + info.email + "    " + info.ph));
+
+           let btn=document.createElement("button")
+            btn.appendChild(document.createTextNode("DELETE"))
+           
+            btn.style.float="right";
+            li.appendChild(btn);
             list.appendChild(li)
+            li.style.marginBottom="20px";
+             btn.onclick= async function()
+            {
+                localStorage.removeItem(info._id);
+                await axios.delete(`https://crudcrud.com/api/47161d16802b4133928e81bcbc956c34/user/${info._id}`)
+                .then((response)=>{
+                    list.removeChild(li);
+                })
+                .catch((error)=>{
+                    console.log(error)
+                })
+               
+
+            }
+
             
        }
 

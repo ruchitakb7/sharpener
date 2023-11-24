@@ -53,6 +53,20 @@
 
         }
        }
+     window.addEventListener("DOMContentLoaded",async ()=>{
+        
+            await axios.get("https://crudcrud.com/api/47161d16802b4133928e81bcbc956c34/user")
+            .then((response)=>{
+                console.log(response.data);
+                for(let i=0;i<response.data.length;i++)
+                {
+                printdata(response.data[i]);
+                }
+            })
+        .catch((error)=>{
+            console.log(error)
+        })
+       })
         function printdata(info)
        {
             let li= document.createElement("li")

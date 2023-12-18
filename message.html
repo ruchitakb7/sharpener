@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <title>Home</title>
+        
+        <style>
+             div{
+                border: 2px solid white;
+                width: 200px;
+                height: auto;
+                margin-top:100px;
+                margin-left: 480px;
+                padding: 20px;
+                align-content: center;
+                background-color: skyblue;
+            }
+        </style>
+    </head>
+         <body>
+            <div id="d">
+         
+         <form action="/update" method="POST">
+            data
+            Enter Message:
+         <input type="text" name="msg" id="msg" required> <br><br>
+         <input type="hidden" name="user" id="name" readonly> 
+         <button onclick="add()">send</button>
+     
+         </form>
+         </div>
+         </body>
+         <script>
+    
+         function add(){
+         document.getElementById("name").value= JSON.parse(localStorage.getItem(localStorage.key(0)));
+         }
+         </script>  
+         
+ </html>

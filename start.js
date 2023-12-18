@@ -5,10 +5,10 @@ const parser=require('body-parser')
 router.use(parser.urlencoded({extended:false}));
 const fs=require('fs');
 const path=require('path')
-
+const root=require('../util/path')
 router.get('/Homepage',(req,res)=>{
 
-   res.sendFile(path.join(__dirname, '../', 'views' , 'main.html'))
+   res.sendFile(path.join(root, 'views' , 'main.html'))
 })
 
 router.get('/login',(req,res)=>{
@@ -18,13 +18,13 @@ router.get('/login',(req,res)=>{
 
 
 
-router.get('/contact',(req,res)=>{
+/*router.get('/contact',(req,res)=>{
 
     res.sendFile(path.join(__dirname, '../', 'views' , 'contact.html'))
-})
-router.post('/success',(req,res)=>{
+}) */
+/*router.post('/success',(req,res)=>{
     res.send("Process Has Been Completed Successfully")
-})
+}) */
 
 router.post('/update',(req,res)=>{
     const name=req.body.user;
@@ -89,8 +89,6 @@ router.post('/update',(req,res)=>{
                      </html>`
                      
         )
-        
-      //  res.sendFile(path.join(__dirname, '../', 'views' , 'message.html'))
    
    })
    
